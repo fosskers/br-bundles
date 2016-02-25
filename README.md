@@ -3,10 +3,9 @@ Bundle Pricing
 
 Started: 2016 February 25 @ 10:30
 Finished library: 2016 February 25 @ 14:55
+Finished tests: 2016 February 25 @ 15:57
 
-lunch at 2016 February 25 @ 11:20
-finished lunch at 2016 February 25 @ 12:09
-also did adenda crap for a while (12:16 - 12:33)
+*Total time (minus lunch in between): ~4 hours*
 
 ### Problem
 Given a catalogue of items, a set of possible discount "bundles"
@@ -42,6 +41,10 @@ assumptions that:
   given in the problem spec).
 
 I've opted for the latter.
+
+### Usage
+Open `sbt` or `activator` in the project home, and run `test`
+to run the testing suite.
 
 ### Tools
 * Vanilla Scala

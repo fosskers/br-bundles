@@ -25,13 +25,9 @@ class BundleTests extends FlatSpec with Matchers with ScalaFutures {
   /* What deals! */
   val lotr = Bundle(Seq(hobbit,rings), 12)
   val jimButcher = Bundle(Seq(storm,fool,summer,grave), 10)
+  val mixed = Bundle(Seq(hobbit,grave,summer,alch), 1)
 
-  val bundles: Seq[Bundle] = Seq(lotr,jimButcher)
-  val bigOrder: Seq[Item] = Seq(
-    storm,fool,summer,grave,hobbit,rings,
-    hobbit,hobbit,alch,dune,robin,robin
-  )
-  val smallOrder: Seq[Item] = Seq(hobbit,rings,dune)
+  val bundles: Seq[Bundle] = Seq(lotr,jimButcher,mixed)
 
   "leftOver" should "fail on empty orders" in {
     leftOver(lotr, Seq()) should not be defined
@@ -55,18 +51,24 @@ class BundleTests extends FlatSpec with Matchers with ScalaFutures {
     left.get.length should be (2)
   }
 
-  val smallFut: Future[Float] = bestPrice(bundles, smallOrder)
-  val bigFut: Future[Float] = bestPrice(bundles, bigOrder)
-
   "bestPrice" should "find the lowest price for a single-bundle order" in {
-    whenReady(smallFut) { price =>
-      price should be (22)
+    val smallOrder: Seq[Item] = Seq(hobbit,rings,dune)
+
+    whenReady(bestPrice(bundles, smallOrder)) { price =>
+      price should be (lotr.price + dune.price)
     }
   }
 
   it should "find the lowest price for a multi-bundle order" in {
-    whenReady(bigFut) { price =>
-      price should be (95)
+    val bigOrder: Seq[Item] = Seq(
+      storm,fool,summer,grave,hobbit,rings,
+      hobbit,hobbit,dune,robin,robin
+    )
+
+    whenReady(bestPrice(bundles, bigOrder)) { price =>
+      price should be (lotr.price + jimButcher.price + hobbit.price * 2 +
+        dune.price + robin.price * 2
+      )
     }
   }
 
@@ -74,7 +76,15 @@ class BundleTests extends FlatSpec with Matchers with ScalaFutures {
     val order = Seq(hobbit,rings,hobbit,rings)
 
     whenReady(bestPrice(bundles, order)) { price =>
-      price should be (24)
+      price should be (lotr.price * 2)
+    }
+  }
+
+  it should "find the lowest price for orders whose items are in multiple bundles" in {
+    val order = Seq(hobbit,storm,fool,grave,summer,alch)
+
+    whenReady(bestPrice(bundles,order)) { price =>
+      price should be (mixed.price + storm.price + fool.price)
     }
   }
 
