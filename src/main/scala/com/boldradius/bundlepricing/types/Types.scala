@@ -7,15 +7,6 @@
 
 package com.boldradius.bundlepricing.types
 
-/** Anything with a price associated with it */
-trait Sellable {
-  val price: Float
-}
+case class Item(name: String, price: Float)
 
-case class Item(name: String, price: Float) extends Sellable
-
-case class Bundle(items: Seq[Item], price: Float) extends Sellable
-
-object Types {
-  type Catalogue = Set[Item]
-}
+case class Bundle(items: Seq[Item], price: Float)

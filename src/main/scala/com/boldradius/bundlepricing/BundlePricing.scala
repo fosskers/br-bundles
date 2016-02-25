@@ -7,7 +7,6 @@
 
 package com.boldradius.bundlepricing
 
-import com.boldradius.bundlepricing.types.Types.Catalogue
 import com.boldradius.bundlepricing.types.{Bundle, Item}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -16,7 +15,6 @@ import scala.concurrent.{ExecutionContext, Future}
 object BundlePricing {
 
   def bestPrice(
-    catalogue: Catalogue,
     bundles: Seq[Bundle],
     order: Seq[Item]
   )(implicit ec: ExecutionContext): Future[Float] = {
