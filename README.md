@@ -2,7 +2,7 @@ Bundle Pricing
 ==============
 
 Started: 2016 February 25 @ 10:30
-Finished: 
+Finished library: 2016 February 25 @ 14:55
 
 lunch at 2016 February 25 @ 11:20
 finished lunch at 2016 February 25 @ 12:09

@@ -45,7 +45,7 @@ object BundlePricing {
        * more than one instance of the same bundle could appear in
        * an order.
        */
-      split(b,order) match {
+      leftOver(b,order) match {
         case None => Future.successful(order.map(_.price).sum)
         case Some(rest) => bundle(bundles,rest).map(_ + b.price)
       }
@@ -56,7 +56,7 @@ object BundlePricing {
   /* If the bundle can be made with the given order, what `Item`s would
    * be left over?
    */
-  private def split(bundle: Bundle, order: Seq[Item]): Option[Seq[Item]] = {
+  def leftOver(bundle: Bundle, order: Seq[Item]): Option[Seq[Item]] = {
 
     /* Some clever `Seq` tricks. If a `Bundle` would be made empty by
      * removing the contents of the order from it, then the Bundle is
