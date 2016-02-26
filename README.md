@@ -2,7 +2,9 @@ Bundle Pricing
 ==============
 
 Started: 2016 February 25 @ 10:30
+
 Finished library: 2016 February 25 @ 14:55
+
 Finished tests: 2016 February 25 @ 15:57
 
 *Total time (minus lunch in between): ~4 hours*
